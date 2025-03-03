@@ -1,0 +1,49 @@
+# 📌 Ignorar dependencias de Composer
+/src/vendor/
+composer.lock
+
+# 📌 Ignorar configuraciones locales y caché de Doctrine
+/var/
+/cache/
+/logs/
+/migrations/*.php~
+
+# 📌 Ignorar archivos de entorno
+.env
+.env.local
+.env.*.local
+
+# 📌 Ignorar configuración de bases de datos locales
+/database/
+
+# 📌 Ignorar configuraciones específicas de Docker
+/docker-compose.override.yml
+/docker/data/
+docker-compose.override.yml
+docker-compose.yaml~
+*.log
+*.pid
+
+# 📌 Ignorar archivos de sesiones y caché de PHP
+*.cache
+*.log
+*.session
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# 📌 Ignorar archivos de IDEs y sistemas operativos
+/.vscode/
+/.idea/
+/*.DS_Store
+/.phpunit.result.cache
+
+# 📌 Ignorar claves privadas o archivos sensibles (si los usas)
+/config/secrets/
+config/jwt/private.pem
+config/jwt/public.pem
+
+# 📌 Ignorar binarios generados
+/bin/
+build/
