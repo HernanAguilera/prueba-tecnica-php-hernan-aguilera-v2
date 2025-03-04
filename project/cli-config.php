@@ -10,7 +10,10 @@ use Doctrine\Migrations\Provider\SchemaProvider;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\Migrations\Tools\Console\Command;
 use Doctrine\Migrations\Provider\OrmSchemaProvider;
+use Dotenv\Dotenv;
 
+$docenv = Dotenv::createImmutable(__DIR__);
+$docenv->load();
 
 // Configurar Doctrine ORM
 $config = ORMSetup::createAttributeMetadataConfiguration(
@@ -20,10 +23,10 @@ $config = ORMSetup::createAttributeMetadataConfiguration(
 
 // Configuración de la conexión
 $connectionParams = [
-    'dbname'   => 'challengephp',
-    'user'     => 'hernan',
-    'password' => 'secret',
-    'host'     => 'mysql',
+    'dbname'   => $_ENV['DB_NAME'],
+    'user'     => $_ENV['DB_USER'],
+    'password' => $_ENV['DB_PASSWORD'],
+    'host'     => $_ENV['DB_HOST'],
     'driver'   => 'pdo_mysql',
 ];
 
