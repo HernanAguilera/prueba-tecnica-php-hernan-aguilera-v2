@@ -14,15 +14,15 @@ use Doctrine\Migrations\Provider\OrmSchemaProvider;
 
 // Configurar Doctrine ORM
 $config = ORMSetup::createAttributeMetadataConfiguration(
-    paths: [__DIR__ . "/Entity"], // Ruta de las entidades
+    paths: [__DIR__ . "/src/Entity"], // Ruta de las entidades
     isDevMode: true
 );
 
 // Configuración de la conexión
 $connectionParams = [
-    'dbname'   => 'mi_base_datos',
-    'user'     => 'user',
-    'password' => 'password',
+    'dbname'   => 'challengephp',
+    'user'     => 'hernan',
+    'password' => 'secret',
     'host'     => 'mysql',
     'driver'   => 'pdo_mysql',
 ];

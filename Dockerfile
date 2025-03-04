@@ -16,7 +16,7 @@ RUN a2enmod rewrite
 
 # Copiamos los archivos del proyecto a la imagen
 WORKDIR /var/www/html
-COPY ./src /var/www/html
+COPY ./project /var/www/html
 
 # Damos permisos adecuados
 RUN chown -R www-data:www-data /var/www/html
