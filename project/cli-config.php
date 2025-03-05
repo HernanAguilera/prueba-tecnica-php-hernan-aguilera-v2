@@ -9,6 +9,7 @@ use Doctrine\Migrations\Configuration\Connection\ExistingConnection;
 use Doctrine\Migrations\Provider\SchemaProvider;
 use Doctrine\Migrations\Provider\OrmSchemaProvider;
 use App\Infrastructure\Persistence\Doctrine\DoctrineUserRepository;
+use App\Infrastructure\Persistence\Doctrine\AddTypes;
 
 
 use Dotenv\Dotenv;
@@ -47,5 +48,8 @@ $dependencyFactory = DependencyFactory::fromConnection(
 
 // 🔥 **Agregar el SchemaProvider necesario para `diff`**
 $dependencyFactory->setService(SchemaProvider::class, new OrmSchemaProvider($entityManager));
+
+// Agregar tipos de datos
+AddTypes::add();
 
 return $entityManager;

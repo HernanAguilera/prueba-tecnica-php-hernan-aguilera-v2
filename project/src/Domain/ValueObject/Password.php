@@ -9,13 +9,16 @@ class Password
     const MESSAGE = 'La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.';
     private string $hash;
 
-    public function __construct(string $password)
+    public function __construct(string $password, bool $hashed = false)
     {
-        if (strlen($password) < 8 || !preg_match('/[A-Z]/', $password) || !preg_match('/\d/', $password) || !preg_match('/[\W]/', $password)) {
-            throw new InvalidArgumentException(self::MESSAGE);
+        if (!$hashed) {
+            if (strlen($password) < 8 || !preg_match('/[A-Z]/', $password) || !preg_match('/\d/', $password) || !preg_match('/[\W]/', $password)) {
+                throw new InvalidArgumentException(self::MESSAGE);
+            }
+            $this->hash = password_hash($password, PASSWORD_BCRYPT);
+        } else {
+            $this->hash = $password;
         }
-
-        $this->hash = password_hash($password, PASSWORD_BCRYPT);
     }
 
     public function getHash(): string

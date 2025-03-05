@@ -13,16 +13,16 @@ use Doctrine\ORM\Mapping as ORM;
 class User
 {
     #[ORM\Id]
-    #[ORM\Column(type: "string")]
+    #[ORM\Column(type: "user_id")]
     private UserId $id;
 
-    #[ORM\Column(type: "string")]
+    #[ORM\Column(type: "name")]
     private Name $name;
 
-    #[ORM\Column(type: "string", unique: true)]
+    #[ORM\Column(type: "email", unique: true)]
     private Email $email;
 
-    #[ORM\Column(type: "string", length: 255)]
+    #[ORM\Column(type: "password", length: 255)]
     private Password $password;
 
     #[ORM\Column(type: "datetime_immutable")]
