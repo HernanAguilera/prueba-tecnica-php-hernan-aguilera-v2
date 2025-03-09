@@ -48,6 +48,6 @@ class RegisterUserUseCase
     private function dispatchEvent(UserRegisteredEvent $event): void
     {
         // Simulación de evento (se puede integrar con un Event Bus real)
-        echo "Evento disparado: Usuario registrado con email " . $event->getUser()->getEmail();
+        // echo "Evento disparado: Usuario registrado con email " . $event->getUser()->getEmail();
     }
 }
