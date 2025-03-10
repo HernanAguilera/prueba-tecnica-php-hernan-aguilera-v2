@@ -42,4 +42,13 @@ class DoctrineUserRepository implements UserRepositoryInterface
             $this->entityManager->flush();
         }
     }
+
+    public function deleteAll(): void
+    {
+        $repository = $this->entityManager->getRepository(User::class);
+        $repository->createQueryBuilder('u')
+            ->delete()
+            ->getQuery()
+            ->execute();
+    }
 }

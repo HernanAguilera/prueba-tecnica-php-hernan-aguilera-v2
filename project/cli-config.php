@@ -10,11 +10,12 @@ use Doctrine\Migrations\Provider\SchemaProvider;
 use Doctrine\Migrations\Provider\OrmSchemaProvider;
 use App\Infrastructure\Persistence\Doctrine\DoctrineUserRepository;
 use App\Infrastructure\Persistence\Doctrine\AddTypes;
-
-
 use Dotenv\Dotenv;
 
-$docenv = Dotenv::createImmutable(__DIR__);
+
+$envFile = getenv('APP_ENV') === 'testing' ? '.env.testing' : '.env';
+
+$docenv = Dotenv::createImmutable(__DIR__, $envFile);
 $docenv->load();
 
 // Configurar Doctrine ORM

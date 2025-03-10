@@ -9,7 +9,7 @@ use App\Domain\ValueObject\Email;
 use App\Domain\ValueObject\Name;
 use App\Domain\ValueObject\Password;
 use App\Domain\Event\UserRegisteredEvent;
-use DomainException;
+use App\Domain\Exception\UserAlreadyExistsException;
 
 class RegisterUserUseCase
 {
@@ -25,7 +25,7 @@ class RegisterUserUseCase
         // Validar si el email ya existe
         $existingUser = $this->userRepository->findByEmail(new Email($request->email));
         if ($existingUser !== null) {
-            throw new DomainException("El email ya está en uso.");
+            throw new UserAlreadyExistsException();
         }
 
         // Crear un nuevo usuario
