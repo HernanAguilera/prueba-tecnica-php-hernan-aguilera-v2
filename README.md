@@ -67,6 +67,7 @@ Deberia recibir un `201` con el siguiente cuerpo:
     "createdAt": "2021-01-01T00:00:00+00:00",
     "updatedAt": "2021-01-01T00:00:00+00:00"
 }
+```
 
 ### 📌 Tests
 
@@ -75,4 +76,3 @@ Los tests se realizan en el directorio `tests`.
 Para ejecutar las migraciones, se utiliza el comando `docker-compose exec vendor/bin/doctrine-migrations migrate` o `make migrate-test`.
 
 Para ejecutar los tests, se utiliza el comando `docker-compose exec vendor/bin/phpunit` o `make run-tests`.
-```
