@@ -43,6 +43,31 @@ Las migraciones se realizan en el archivo `src/migrations.php`.
 
 Para ejecutar las migraciones, se utiliza el comando `make migrate` o `docker exec -it pc-php bash -c "./doctrine migrate"`.
 
+### 📌 Hacer request a la API
+
+La API se ejecuta en el puerto `8080` y se puede acceder a través de `http://localhost:8082/register`.
+
+```bash
+curl -X POST http://localhost:8082/register \
+     -H "Content-Type: application/json" \
+     -d '{
+        "name": "John Doe",
+        "email": "john@example.com",
+        "password": "SecureP@ss123"
+     }'
+```
+
+Deberia recibir un `201` con el siguiente cuerpo:
+
+```json
+{
+    "id": "1",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "createdAt": "2021-01-01T00:00:00+00:00",
+    "updatedAt": "2021-01-01T00:00:00+00:00"
+}
+
 ### 📌 Tests
 
 Los tests se realizan en el directorio `tests`.
@@ -50,3 +75,4 @@ Los tests se realizan en el directorio `tests`.
 Para ejecutar las migraciones, se utiliza el comando `docker-compose exec vendor/bin/doctrine-migrations migrate` o `make migrate-test`.
 
 Para ejecutar los tests, se utiliza el comando `docker-compose exec vendor/bin/phpunit` o `make run-tests`.
+```

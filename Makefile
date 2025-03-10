@@ -3,6 +3,7 @@ up:
 
 down:
 	docker-compose down
+	rm -rf ./mysql
 
 logs:
 	docker-compose logs -f

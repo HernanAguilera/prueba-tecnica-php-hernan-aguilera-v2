@@ -11,6 +11,9 @@ RUN apt-get update && apt-get install -y \
 # Instalamos Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Establece el nuevo DocumentRoot
+RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+
 # Habilitamos mod_rewrite de Apache
 RUN a2enmod rewrite
 
