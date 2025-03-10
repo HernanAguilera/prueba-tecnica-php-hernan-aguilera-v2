@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+
+use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Doctrine\Migrations\Tools\Console\Command;
+use Doctrine\Migrations\DependencyFactory;
+
+// Cargar Composer Autoload
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Obtener EntityManager desde cli-config.php
+$entityManager = require __DIR__ . '/cli-config.php';
+
+// Configurar Doctrine CLI
+$cli = ConsoleRunner::createApplication(
+    new \Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider($entityManager)
+);
+
+$cli->addCommands([
+    new Command\DumpSchemaCommand($dependencyFactory),
+    new Command\ExecuteCommand($dependencyFactory),
+    new Command\GenerateCommand($dependencyFactory),
+    new Command\MigrateCommand($dependencyFactory),
+    new Command\RollupCommand($dependencyFactory),
+    new Command\StatusCommand($dependencyFactory),
+    new Command\SyncMetadataCommand($dependencyFactory),
+    new Command\VersionCommand($dependencyFactory),
+    new Command\DiffCommand($dependencyFactory), // 🛠 **Ahora `diff` debería funcionar**
+]);
+
+// Ejecutar la CLI de Doctrine
+$cli->run();

@@ -7,17 +7,20 @@ use Doctrine\Migrations\Configuration\Migration\PhpFile;
 use Doctrine\Migrations\DependencyFactory;
 use Doctrine\Migrations\Configuration\Connection\ExistingConnection;
 use Doctrine\Migrations\Provider\SchemaProvider;
-use Doctrine\ORM\Tools\Console\ConsoleRunner;
-use Doctrine\Migrations\Tools\Console\Command;
 use Doctrine\Migrations\Provider\OrmSchemaProvider;
+use App\Infrastructure\Persistence\Doctrine\DoctrineUserRepository;
+use App\Infrastructure\Persistence\Doctrine\AddTypes;
 use Dotenv\Dotenv;
 
-$docenv = Dotenv::createImmutable(__DIR__);
+
+$envFile = getenv('APP_ENV') === 'testing' ? '.env.testing' : '.env';
+
+$docenv = Dotenv::createImmutable(__DIR__, $envFile);
 $docenv->load();
 
 // Configurar Doctrine ORM
 $config = ORMSetup::createAttributeMetadataConfiguration(
-    paths: [__DIR__ . "/src/Entity"], // Ruta de las entidades
+    paths: [__DIR__ . "/src/Domain/Entity"], // Ruta de las entidades
     isDevMode: true
 );
 
@@ -34,6 +37,8 @@ $connection = DriverManager::getConnection($connectionParams, $config);
 
 // Crear EntityManager
 $entityManager = new EntityManager($connection, $config);
+// Crear repositorio de usuarios
+$userRepository = new DoctrineUserRepository($entityManager);
 
 // Configuración de Doctrine Migrations
 $migrationsConfig = new PhpFile(__DIR__ . '/migrations.php');
@@ -45,21 +50,7 @@ $dependencyFactory = DependencyFactory::fromConnection(
 // 🔥 **Agregar el SchemaProvider necesario para `diff`**
 $dependencyFactory->setService(SchemaProvider::class, new OrmSchemaProvider($entityManager));
 
-// Registrar los comandos de Doctrine Migrations
-$cli = ConsoleRunner::createApplication(
-    new \Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider($entityManager)
-);
-$cli->addCommands([
-    new Command\DumpSchemaCommand($dependencyFactory),
-    new Command\ExecuteCommand($dependencyFactory),
-    new Command\GenerateCommand($dependencyFactory),
-    new Command\MigrateCommand($dependencyFactory),
-    new Command\RollupCommand($dependencyFactory),
-    new Command\StatusCommand($dependencyFactory),
-    new Command\SyncMetadataCommand($dependencyFactory),
-    new Command\VersionCommand($dependencyFactory),
-    new Command\DiffCommand($dependencyFactory), // 🛠 **Ahora `diff` debería funcionar**
-]);
+// Agregar tipos de datos
+AddTypes::add();
 
-// Ejecutar la CLI de Doctrine
-$cli->run();
+return $entityManager;

@@ -23,7 +23,5 @@ services:
       MYSQL_USER: hernan
       MYSQL_PASSWORD: secret
     volumes:
-      - mysql_data:/var/lib/mysql
-
-volumes:
-  mysql_data:
+      - ./mysql/data:/var/lib/mysql
+      - ./init_sql:/docker-entrypoint-initdb.d
